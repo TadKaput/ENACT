@@ -1,0 +1,22 @@
+﻿Summary (What were my design decisions?):
+
+1.  Be aware that this project is a KNOWN Anti-Pattern!  This is one area where I disagree with the honorable Martin Fowler's "First Law of Distributed Object Design".
+	a. Technically, each project should be responsible for maintaining their own objects.  This project is built for the "Real World" (see below).
+2.  An emphasis on the minimization of dependent libraries should be kept.  ex: To reference this project in a XAMARIN project requires all referenced DLL's to be mobile-friendly.
+3.  Properties ONLY:  no logic should be contained here (except "FAKE()")
+3.  ONLY "public static Type Fake()" logic should be contained in the POCO's.  All other logic belongs somewhere else.
+
+Advantages: (Why did I make the design decisions?):
+
+1.  Why break the rules?  "Developing against the great Martin Fowler is arrogant!"  Yes, it is, but hear me out:
+	a.  In the REAL WORLD, most models simply don't change from layer to layer.  Keeping separate objects in each layer becomes very tedious to maintain.
+	b.  In the REAL WORLD, attribute-based Dependency injection is much more developer-friendly.
+	c.  In the REAL WORLD, FAKE() objects can greatly speed up development time.  Keeping them readily available to EVERY layer keeps parallel development simple, and TDD easy to implement.
+	d.  When logic gets complex, I still believe in a project with its own models; this should be implemented on an as-needed basis.
+
+BIBLIOGRAPHY:
+
+1.  REAL WORLD:
+	a.  http://c2.com/cgi/wiki?RealWorld
+2.  Martin Fowler's First Law of Distributed Object Design
+	a.  http://c2.com/cgi/wiki?FirstLawOfDistributedObjectDesign

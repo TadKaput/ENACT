@@ -1,0 +1,46 @@
+
+"Perfection is Achieved Not When There Is Nothing More to Add, But When There Is Nothing Left to Take Away" --Antoine de Saint-Exupery
+
+"Simple is not easy." --Christopher Penn
+
+
+Summary (What were my architecture decisions, and why?):
+
+1.  Strict N-Tier Architecture.  Each layer may only reference the layer immediately below it, or the "Models" project (which is a parallel project, referenced by everything)
+	a.  This helps prevent developers from inserting logic into the wrong layer.
+2.  Strict use of DI/IoC framework for connecting layers
+	a.  Enables Unit testing mock frameworks, scoping issues.
+3.  Every "public" manager class is REST-ful; It must return ONE data type (or a primitive data type), and correlate to the object the manager manages.  EASY DISCOVERY!
+4.  No Duplicate code!  Every piece of logic has ONE and ONLY one place for it.  This should be made clear to every developer, and everyone needs to be on the same page with this one.
+	b.  Easily discover duplicate code; because all the logic is centralized/categorized/organized, it should ONLY exist in one location; Easy to spot duplicate logic.
+	c.  Easier to maintain logical organization-- the key to successful maintainence of large-scale logic problems
+5.  Maintain simplicity.  Maintain simplicity at all costs.  The death of simplicity is the death of the application.
+	a.  Object Oriented Development was designed to break complex problems into several simple ones.  Take advantage of it!
+	b.  Method names should describe a simple set of logic that is accomplished.  If the context, method name, and code is simple, it should be understandable "at-a-glance".
+	c.  Goal:  Each method should do ONE thing.  Towards that end, I apply a rule of thumb: methods should be less than 20 pieces/lines of logic.  Mid-level dev's should have less than 10 pieces of logic per method (preferrably about 5 lines average).  Keep it simple, stupid!
+
+
+Advantages: (future improvements should be easy):
+
+1.  Designed for small to mid-sized businesses, easily upgraded to Large business technologies  (MicroService and ESB ready)
+2.  TDD ready!  DI/IoC friendly patterns for extreme testability.  Use Integration test suite (Postman/JetPacks) and/or Unit Tests where appropriate.
+3.  CI Ready!  Recommended for use with TeamCity Server for rapid/automatic deployments and a team-friendly environment.
+4.  Ready for update to MicroService or ESB where/when appropriate.
+
+
+BIBLIOGRAPHY:
+
+1.  TeamCity CI
+	a.  https://www.jetbrains.com/teamcity/
+2.  N-Tier Architecture
+	a.  https://en.wikipedia.org/wiki/Multitier_architecture
+	b.  http://stackoverflow.com/questions/312187/what-is-n-tier-architecture
+3.  "Simple is not Easy"
+	a.  http://www.christopherspenn.com/2010/11/simple-is-not-easy/
+4.  How many lines of code should a method have?
+	a.  http://stackoverflow.com/questions/475675/when-is-a-function-too-long
+
+
+Random thoughts:
+
+1.  Does it annoy anyone else that JSON doesn't have anything analogous to an XSD (Schema Definition file)?

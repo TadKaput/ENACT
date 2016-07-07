@@ -1,0 +1,4 @@
+﻿Summary (Why did I make the design decisions?):
+
+
+See Enact.Repository.Sql --> DesignPhilosophy.txt

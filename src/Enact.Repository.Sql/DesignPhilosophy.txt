@@ -1,0 +1,33 @@
+﻿Summary (What were my design decisions?):
+
+1.  SQL repository.  (Only this project has a reference to Entity Framework)
+2.  All SQL queries must be loaded into memory before leaving this library (execute / *.ToList() all IQueryable objects before leaving this layer)
+3.  Each Repository returns the object that it refers to (or a primitive).  (ex: UserController always returns either a "User" object, or a primitive data type like a boolean or int)
+4.  NOTE:  Enact.Repository.Sql.CrudRepository is helpful, but is not required for interaction with the database.
+5.  NOTE:  Metadata mapping is optional, but can be very useful.
+
+Advantages (Why did I make the design decisions?):
+1.  Decouple all major dependiencies on one repository technology.
+	a. If you ever wanted to swap SQL for another Repository technology (like MONGO or ElasticSearch, or even SQL Lite), this work can be done quantifyably (the work is able to be estimated).
+2.  Remove confusion between repsitory interaction technologies (like NEST and EF)
+3.  Easy to fake a Repository when Unit Testing the Business layer.
+4.  Easy to spot bottlenecks or slow database interactions.
+5.  Easier to optimize queries (all the queries are centralized).
+6.  Singleton pattern (with Dependency Injection) allows for cached queries (runonce)
+7.  Scoped Dependency (with Dependency Injection) allows for a reusable data context that is only specific to that unit of work.  No more EF caching issues.
+8.  Separation of Concerns-  If you know you have a query-related bug, you know exactly where to find it.
+9.  Easy to spot duplication in code.  (Does this functionality already exist (in my very large application)?)
+10. Easily use whatever repository type meets your needs; throw the one ring back into Mt. Doom. ("One Repository to Rule them ALL, and in the darkness, bind them!"  --um.... NO.)
+11. Micro-Service or Enterprise Service Bus ready!  As your product grows and this repository becomes large, you can implement each method as its own microservice, deployed directly on the Repository server!  (Simply use WCF for Microservice, or something like NServiceBus for ESB)
+12. Helps enforce separation-of-concerns; by being UNABLE to invoke an EF query in your front-end / Business tier, you have less of a chance that novice developers can screw up your beautiful layering.
+
+BIBLIOGRAPHY:  
+
+1.  Repository Pattern: 
+	a.  https://msdn.microsoft.com/en-us/library/ff649690.aspx
+2.  Dependency Injection as a means of Inversion of Control (class/attribute based)  (configured in Startup.cs --> Config/DependencyInjection.cs)
+	a. http://martinfowler.com/articles/injection.html
+	c. http://dotnetliberty.com/index.php/2016/01/11/dependency-scanning-in-asp-net-5/
+	d. https://docs.asp.net/projects/api/en/latest/autoapi/Microsoft/Extensions/DependencyInjection/ServiceLifetime/
+3.  Metadata Mapping:
+	a. http://www.martinfowler.com/eaaCatalog/metadataMapping.html

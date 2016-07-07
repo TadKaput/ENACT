@@ -1,0 +1,64 @@
+﻿Summary (What were my design decisions?):
+
+1.  Easy Documentation: the Swagger protocol implemented through "Swashbuckle" (I think Richard Morris is as awesome as the legendary Eric Lawrence, who sold out to Telerik).
+2.  For Api Testing, I recommend using either Telerik's Fiddler debugger or Chrome's PostMan.
+3.  API layer handles HTTP requests and responses.  Built with REST specifications in-mind.  
+4.  Api layer is responsible for Security, Serialization, error handling, and input validation.
+5.  Multiple Api's may be used as new functionality is needed.  (Main web application, Partner Integration, Mobile development, Reporting, etc.)
+6.  Replace this layer with MVC for a unified front-end; or use the API in conjunction with a CDN and a JavaScript/SPA framework (Angular / Knockout / Sencha)
+7.  Development process is as follows:
+	a.  Principal Engineer stubs out the Service Contracts:  API Layer, Business Layer, and Repository Layer.  UX Engineer draws up the UI Mock.
+	b.  Front-End Developer uses functional API layer mock to develop fully-working UI according to Principal Engineer's Api Interfaces.
+	c.  Back-End Developer implements interfaces created earlier by the Principal Engineer.
+	d.  DBA creates tables, relationships, or Document Store manipulation as-needed based on the Pricipal Engineer's specifications.
+8.  Dependency Injection:  Attribute-based scope
+	a.  Singleton Pattern: Specifies that a single instance of the service will be created.
+	b.  Scoped Dependency: Specifies that a new instance of the service will be created for each scope.
+	c.  Transient Dependency: Specifies that a new instance of the service will be created every time it is requested.
+9.  Any project in this layer should always and only reference the business layer (Enact.Business) and the models project (Enact.Models)
+
+Advantages: (Why did I make the design decisions?):
+
+1.  Swashbuckle provides a simple, easy-to-use, public-facing API documentation tool.  ANY Single Page Application, front-end developer, partner, or even QA analyst will appreciate this.
+2.  QA can make use of Fiddler or PostMan's ability to manufacture HTTP packets to test the API.  PostMan now includes JetPacks (built in) for automated and integration testing.
+3.  For debugging, you don't need to figure out the entire front-end; examine every HTTP API request and response using Fiddler!
+4.  You are not locked into one security pattern; Simply have one security pattern that meets the needs of each API.  (OAuth 2.0 vs JWT?  IP Filtering or Active Directory?  Basic Auth?)
+5.  Because all Business / Repository logic is NOT included in this layer, functionality can be turned on/off as needed.
+6.  Easy Xamarin implementation for native mobile apps.
+7.  Each developer on your team is now able to specialize in their field; 
+8.  Work can be accomplished faster because the Front-end, Middle-Tier, and Database work can be accomplished simultaniously by a specialist.
+9.  You are NOT limited to a single front-end framework.  As new UI's become available / mocked, the Front-End Developer is free to develop according to their personal preference without a major impact to the company.
+10. Test Driven Development Ready!  Write your Integration Tests (front-end) and Unit Tests (back-end) first; develop later.
+11. Continuous Integration Ready!  Once all unit and integration tests pass, deploy immediately!  Front-end applications simply consume resources; as long as the service contracts do not change, impact to the UI should be minimal.
+12. Lightweight!  Absolutely nothing is installed that doesn't need to be.  "Perfection is achieved not when there is nothing more to add, but when there is nothing more to take away."  --Antoine de Saint-Exupery
+13. Attribute based Dependency Injection allows the developer to know the intended scope of the object he is working on without having to refer back to the dependency injection configuration.
+	a.  Singletons should be VERY memory efficient, thread-safe, and very fast!  Just be careful to stick within the rules of a "singleton."
+	b.  Scoped dependencies are more memory efficient and faster than "new-ing" up your object each time.  Just be aware that it will only be constructed once per calling thread.
+	c.  Transient dependencies are constructed "new" each time they are called.  Good for unit testing.
+	d.  Dependency Injection Scanning:  Great shortcut for scanning each associated assembly for DI Attributes.  (reduces code complexity, development time)
+14. Attribute-based dependency injection is optional!  Some architects prefer to configure DI manually; Some architects prefer to scan for all matching Interfaces and use one dependency type (singleton, etc).
+15. Proper layering is great for Separation of Concerns.  This layer is concerned with being an API or UI (or under less ideal circumstances, both UI and API like MVC)
+
+BIBLIOGRAPHY:
+
+1.  Service Layer Pattern:
+	a.  http://martinfowler.com/eaaCatalog/serviceLayer.html
+2.  Swagger / Swashbuckle:
+	a.  https://channel9.msdn.com/Shows/Web+Camps+TV/Documenting-your-APIs-with-Swagger-feature-Richard-Morris
+	b.  https://github.com/domaindrivendev/Swashbuckle
+3.  Debugging and testing tools:
+	a.  http://www.telerik.com/fiddler
+	b.  https://www.getpostman.com/docs/introduction
+4.  REST (Representational State Transfer)
+	a.  https://en.wikipedia.org/wiki/Representational_state_transfer
+5.  HTTP Responses
+	a.  https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+6.  Dependency Injection as a type of IoC
+	a.  http://dotnetliberty.com/index.php/2016/01/11/dependency-scanning-in-asp-net-5/
+	b.  https://docs.asp.net/projects/api/en/latest/autoapi/Microsoft/Extensions/DependencyInjection/ServiceLifetime/
+	c.  http://c2.com/cgi/wiki?SingletonPattern
+7.  Distributed-Computing
+	a.  http://c2.com/cgi/wiki?DistributedComputing
+8.  Separation of Concerns
+	a. https://en.wikipedia.org/wiki/Separation_of_concerns
+

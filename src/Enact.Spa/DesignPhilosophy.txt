@@ -1,0 +1,27 @@
+﻿Summary (What were my design decisions?):
+
+1.  Distribute files using a CDN.
+2.  All data is sourced and secured through AJAX calls to the API.
+3.  All secured data communication should be retrieved through a secured HTTP request/response.
+4.  Pick the SPA framework that works best for you. Don't be locked into Angular just because I chose to use it!  There is a lot of opinions out there, most of which are quite valid and should be considered.
+
+
+
+Advantages: (Why did I make the design decisions?):
+
+1.  True SPA frameworks can operate in an environment where the "heavy lifting" is supporting using a CDN.  CDN's are designed to be region-specific to the user, removing a potential source of latency.
+	a.  Summary:  "It's fast and reliable"
+2.  I chose Angular.js because:
+	a.  There is a large and growing number of developers that are familiar with this framework.
+	b.  This framework is currently being actively developed, and is supported by Google.
+	c.  There are a lot of templates to choose from, and resources to help new developers learn.
+	
+
+BIBLIOGRAPHY:
+
+1.  SPA:
+	a.  https://en.wikipedia.org/wiki/Single-page_application
+	b.  http://noeticforce.com/best-Javascript-frameworks-for-single-page-modern-web-applications  (Last Updated : Mar 05, 2016)
+1.  Angular Js
+	a.  http://www.tutorialspoint.com/angularjs/angularjs_environment.htm
+	b.  Todo Application: http://www.tutorialspoint.com/angularjs/angularjs_todo_application.htm

@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>This is a test of the CDN</title>
+</head>
+<body>
+    <div>HELLO WORLD!</div>
+    <br />
+    <input id="jsGetData" type="submit" value="Get Data from the API (TestModelController)" />
+    <input id="jsPostToApi" type="submit" value="Post to the API (TestModelController)"  />
+    <br />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+
+    <script type="text/javascript">
+
+        var domain = "http://localhost:4000";
+        var testModelPath = "/api/TestModel";
+
+        $('#jsGetData').click(function () {
+            $.get(domain + testModelPath + "/GetAllStuff", function (data) {
+                alert("Success!  Data:\n\n" + JSON.stringify(data))
+            })
+            .done(function (data) {
+                //alert("second success");
+            })
+            .fail(function (e) {
+                alert("Error: " + e);
+            })
+            .always(function () {
+                //alert("finished");
+            });
+        });
+
+    </script>
+</body>
+</html>

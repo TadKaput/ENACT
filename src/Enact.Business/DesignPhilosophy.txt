@@ -1,0 +1,25 @@
+﻿Summary (What were my design decisions?):
+
+1.  Any standard design pattern can be used in this layer; however, you should pick ONE design pattern, and stick with it.  (common patterns: Factory Pattern, Manager Pattern, )
+2.  My example is using a very generic manager pattern.  Simply, each manager should return the POCO it manages.
+
+Advantages: (Why did I make the design decisions?):
+
+1.  Your business logic and dependencies can be shared across API's, projects, etc.  It's centralized, so that logic doesn't have to be duplicated as often (if ever).
+2.  By keeping the business layer as a DLL instead of a MicroService, communication between layers is both reliable and FAST.
+3.  Breaking changes in one area of the business layer can be quickly and easily spotted by the compiler, instead of discovering them at runtime (or after release).
+4.  By separating this layer from the Repository layer, you gain the advantage of being able to quickly spot errors / difficulties in Queries.
+5.  By separating this layer from the API layer, you gain the advantage of being able to implement multiple security protocols 
+	a.  ex: Partner data access vs user data access:  Partners want JWT token auth, while UI may want OAuth 2.0.  Or perhaps some people want access through AD integration?
+	b.  ex: Implementation with a specific technology like Xamarin Studio, or MVC, or Node.js.  Easy to add a wide variety of application interfaces.
+
+
+BIBLIOGRAPHY:
+
+1.  "Manager" pattern
+	a.  http://stackoverflow.com/questions/1866794/naming-classes-how-to-avoid-calling-everything-a-whatevermanager
+	b.  http://stackoverflow.com/questions/1194403/what-names-do-you-find-yourself-prepending-appending-to-classes-regularly
+2.  Good overview of various design patterns:
+	a.  http://www.martinfowler.com/eaaCatalog/
+	b.  
+
