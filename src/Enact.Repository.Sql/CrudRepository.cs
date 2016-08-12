@@ -1,43 +1,46 @@
 ﻿using Enact.Models;
+using Enact.Models.RepositoryInjection;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace Enact.Repository.Sql
 {
     /// <summary>
-    /// Faked repository (for now, until EF is implemented)
+    /// EF repository
     /// </summary>
-    public abstract class CrudRepository<TPrimaryObjectType> where TPrimaryObjectType : GenericMetadata
+    public class CrudRepository<TPrimaryObjectType> : ICrudRepository<TPrimaryObjectType> where TPrimaryObjectType : GenericMetadata
     {
-        internal IEnumerable<TPrimaryObjectType> _table;
+        //private DbContext _context;
 
-        public CrudRepository()
+        public bool MapType()
         {
-            _table = new List<TPrimaryObjectType>(); //fake for now
+            throw new NotImplementedException();
         }
 
-        public void Create(int id, TPrimaryObjectType item)
+        public CrudRepository(object context)
         {
-            _table.Append(item);
-            //save changes
+            throw new NotImplementedException();
         }
 
-        public TPrimaryObjectType Read(int key)
+        public void Create(TPrimaryObjectType item)
         {
-            return _table.FirstOrDefault(a => a.Id == key);
+            throw new NotImplementedException();
+        }
+        public TPrimaryObjectType Read(string id, bool includeVersion = true)
+        {
+            throw new NotImplementedException();
         }
 
-        public void Update(TPrimaryObjectType item)
+        public long Update(TPrimaryObjectType item, bool includeVersion = true)
         {
-            //_table.Remove(key);
-            //_table.Append(item);
-            //save changes
+            throw new NotImplementedException();
+        }
+        
+        public bool Delete(string key)
+        {
+            throw new NotImplementedException();
         }
 
-        public void Delete(int key)
-        {
-            //_table.Remove(key);
-            //save changes
-        }
     }
 }

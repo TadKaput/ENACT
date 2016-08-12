@@ -10,25 +10,22 @@ namespace Enact.Models.TestModel
         public int MyInt { get; set; }
         public string MyString { get; set; }
 
-        public static TestModel Fake(int? id = null)
-        {
-            var fake = GenericMetadata.Fake<TestModel>(id);
-            fake.MyInt = 1234;
-            fake.MyString = "Hello String";
-            return fake;
-        }
-        public static List<TestModel> FakeList()
-        {
-            return new List<TestModel>()
-            {
-                TestModel.Fake(1),
-                TestModel.Fake(),
-                TestModel.Fake(),
-                TestModel.Fake(),
-                TestModel.Fake(),
-                TestModel.Fake(),
-                TestModel.Fake()
-            };
-        }
+        //public static TestModel Fake(string id = null)
+        //{
+        //    var fake = Fake<TestModel>(id);
+        //    fake.MyInt = 1234;
+        //    fake.MyString = "Hello String";
+        //    return fake;
+        //}
+
+        //public static List<TestModel> FakeList()
+        //{
+        //    return new List<TestModel>()
+        //    {
+        //        Fake(),
+        //        Fake(),
+        //        Fake()
+        //    };
+        //}
     }
 }

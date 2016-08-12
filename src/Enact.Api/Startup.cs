@@ -37,7 +37,7 @@ namespace Enact.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors_OriginRestricted();
-            services.AddDependencyInjection();
+            services.AddDependencyInjection(Configuration);
             services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddMvc();

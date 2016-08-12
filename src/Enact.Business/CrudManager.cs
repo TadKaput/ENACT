@@ -1,39 +1,44 @@
-﻿using Enact.Models;
-using Enact.Models.DependencyInjection;
-using Enact.Repository.Sql;
+﻿using Enact.Business.Helpers;
+using Enact.Models;
+using Enact.Models.RepositoryInjection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Enact.Business
 {
-    public abstract class CrudManager<TPrimaryObjectType> where TPrimaryObjectType : GenericMetadata
+    public class CrudManager<TPrimaryObjectType> where TPrimaryObjectType : GenericMetadata
     {
-        private CrudRepository<TPrimaryObjectType> _crudRepository;
+        private ICrudRepository<TPrimaryObjectType> _crudRepository;
 
-        public CrudManager(CrudRepository<TPrimaryObjectType> crudRepository)
+        public CrudManager(ICrudRepository<TPrimaryObjectType> crudRepository)
         {
             _crudRepository = crudRepository;
         }
 
-        public void Create(int id, TPrimaryObjectType item)
+        public string Create(TPrimaryObjectType item)
         {
-            _crudRepository.Create(id, item);
+            if (string.IsNullOrEmpty(item.Id))
+                item.Id = DataHelper.UniqueId();
+            _crudRepository.Create(item);
+            return item.Id;
         }
-        public TPrimaryObjectType Read(int key)
+        public TPrimaryObjectType Read(string id)
         {
-            return _crudRepository.Read(key);
-        }
-
-        public void Update(TPrimaryObjectType item)
-        {
-            _crudRepository.Update(item);
+            return _crudRepository.Read(id);
         }
 
-        public void Delete(int key)
+        public long Update(TPrimaryObjectType item)
         {
-            _crudRepository.Delete(key);
+            return _crudRepository.Update(item);
+        }
+
+        public bool Delete(string id)
+        {
+            return _crudRepository.Delete(id);
+        }
+
+        public bool MapType()
+        {
+            return _crudRepository.MapType();
         }
         
     }

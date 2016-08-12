@@ -1,40 +1,44 @@
 ﻿using Enact.Business;
 using Enact.Models;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Enact.Api.Controllers
 {
     public abstract class CrudController<TPrimaryObjectType> : Controller where TPrimaryObjectType : GenericMetadata
     {
         private CrudManager<TPrimaryObjectType> _crudManager;
+
         public CrudController(CrudManager<TPrimaryObjectType> crudManager)
         {
             _crudManager = crudManager;
         }
 
         [HttpGet("{id}")]
-        public TPrimaryObjectType Get(int id)
+        public IActionResult Get(string id)
         {
-            return _crudManager.Read(id);
+            return Ok(_crudManager.Read(id));
         }
 
         [HttpPost]
-        public void Post([FromBody]TPrimaryObjectType value)
+        public IActionResult Post([FromBody]TPrimaryObjectType item)
         {
-            _crudManager.Update(value);
+            return Created("", _crudManager.Create(item));
         }
 
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]TPrimaryObjectType value)
+        [HttpPut]
+        public IActionResult Put([FromBody]TPrimaryObjectType value)
         {
-            _crudManager.Create(id, value);
+            return Ok(_crudManager.Update(value));
         }
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(string id)
         {
-            _crudManager.Delete(id);
+            _crudManager.Delete(id);            
         }
+
     }
 }
