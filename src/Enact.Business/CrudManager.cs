@@ -1,6 +1,8 @@
 ﻿using Enact.Business.Helpers;
 using Enact.Models;
 using Enact.Models.RepositoryInjection;
+using Enact.Repository.Es;
+using Enact.Repository.Sql;
 using System;
 
 namespace Enact.Business
@@ -9,7 +11,7 @@ namespace Enact.Business
     {
         private ICrudRepository<TPrimaryObjectType> _crudRepository;
 
-        public CrudManager(ICrudRepository<TPrimaryObjectType> crudRepository)
+        public CrudManager(EsCrudRepository<TPrimaryObjectType> crudRepository)
         {
             _crudRepository = crudRepository;
         }
@@ -34,11 +36,6 @@ namespace Enact.Business
         public bool Delete(string id)
         {
             return _crudRepository.Delete(id);
-        }
-
-        public bool MapType()
-        {
-            return _crudRepository.MapType();
         }
         
     }

@@ -21,7 +21,7 @@ namespace Enact.Api.Controllers
         {
             return Ok(_crudManager.Read(id));
         }
-
+        
         [HttpPost]
         public IActionResult Post([FromBody]TPrimaryObjectType item)
         {
@@ -35,9 +35,10 @@ namespace Enact.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public void Delete(string id)
+        public IActionResult Delete(string id)
         {
-            _crudManager.Delete(id);            
+            _crudManager.Delete(id);
+            return new NoContentResult();
         }
 
     }

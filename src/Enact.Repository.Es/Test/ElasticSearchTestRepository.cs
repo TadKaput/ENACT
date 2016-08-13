@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Enact.Repository.Es.Test
 {
-    [SingletonDependency]
-    public sealed class ElasticSearchTestRepository : CrudRepository<TestModel>, ITestRepository
+    
+    public sealed class ElasticSearchTestRepository : EsCrudRepository<TestModel>, IEsTestRepository
     {
         public ElasticSearchTestRepository(RepositoryClient client) : base(client) { }
         

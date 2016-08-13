@@ -12,11 +12,11 @@ namespace Enact.Repository.Es
     /// <summary>
     /// ElasticSearch CrudRepository
     /// </summary>
-    public class CrudRepository<TPrimaryObjectType> : ICrudRepository<TPrimaryObjectType> where TPrimaryObjectType : GenericMetadata
+    public class EsCrudRepository<TPrimaryObjectType> : ICrudRepository<TPrimaryObjectType> where TPrimaryObjectType : GenericMetadata
     {
         private ElasticClient _clientInstance;
 
-        public CrudRepository(RepositoryClient client)
+        public EsCrudRepository(RepositoryClient client)
         {
             _clientInstance = client.Instance;
         }

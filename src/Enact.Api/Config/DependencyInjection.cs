@@ -7,7 +7,9 @@ using Enact.Models.RepositoryInjection;
 using Enact.Repository.Sql.Test;
 using Enact.Repository.Es.Test;
 using Enact.Repository.Es;
+using Enact.Repository.Sql;
 using Microsoft.Extensions.Configuration;
+using Enact.Models.TestModel;
 
 namespace Enact.Api.Config
 {
@@ -18,15 +20,11 @@ namespace Enact.Api.Config
         {
             services.AddDependencyScanning().ScanAllAssemblies();
 
-            //manual DI configuration goes here       
-            if (config["Db"] == "ES")
-            {
-                services.AddSingleton<ITestRepository, ElasticSearchTestRepository>(_ => new ElasticSearchTestRepository(new RepositoryClient(config["Es:Uri"], config["Es:Indices:Test"])));
-            }
-            else if (config["Db"] == "EF")
-            {
-                services.AddSingleton<ITestRepository, SqlTestRepository>(_ => new SqlTestRepository(new object()));
-            }
+            //manual DI configuration goes here
+
+            services.AddSingleton(_ => new ElasticSearchTestRepository(new RepositoryClient(config["Es:Uri"], config["Es:Indices:Test"])));
+            //services.AddSingleton<SqlCrudRepository<TestModel>, SqlTestRepository>(_ => new SqlTestRepository(new object()));
+            
             return services;
         }
     }

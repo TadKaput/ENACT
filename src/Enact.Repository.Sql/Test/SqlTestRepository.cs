@@ -9,16 +9,11 @@ using System.Threading.Tasks;
 namespace Enact.Repository.Sql.Test
 {
     [SingletonDependency]
-    public sealed class SqlTestRepository : CrudRepository<TestModel>, ITestRepository
+    public sealed class SqlTestRepository : SqlCrudRepository<TestModel>, ISqlTestRepository
     {
         public SqlTestRepository(object context) : base(context) { }
 
-        public Task<IEnumerable<TestModel>> GetTestModelsByMyInts(List<string> myStrings)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<TestModel>> GetTestModelsByMyInts(List<int> myInts)
+        public Task<object> Foo()
         {
             throw new NotImplementedException();
         }

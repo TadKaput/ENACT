@@ -9,16 +9,11 @@ namespace Enact.Repository.Sql
     /// <summary>
     /// EF repository
     /// </summary>
-    public class CrudRepository<TPrimaryObjectType> : ICrudRepository<TPrimaryObjectType> where TPrimaryObjectType : GenericMetadata
+    public class SqlCrudRepository<TPrimaryObjectType> : ICrudRepository<TPrimaryObjectType> where TPrimaryObjectType : GenericMetadata
     {
         //private DbContext _context;
 
-        public bool MapType()
-        {
-            throw new NotImplementedException();
-        }
-
-        public CrudRepository(object context)
+        public SqlCrudRepository(object context)
         {
             throw new NotImplementedException();
         }
@@ -41,6 +36,6 @@ namespace Enact.Repository.Sql
         {
             throw new NotImplementedException();
         }
-
+        
     }
 }
