@@ -1,22 +1,33 @@
 ﻿using Enact.Models.DependencyInjection;
+using Enact.Models.RepositoryInjection;
 using Enact.Models.TestModel;
+using Enact.Repository.Es;
+using Enact.Repository.Es.Test;
 using Enact.Repository.Sql.Test;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Enact.Business.Test
 {
     [SingletonDependency]
     public class TestModelManager : CrudManager<TestModel>
     {
-        public SqlTestRepository _testRepository;
+        private ElasticSearchTestRepository _esTestRepository;
 
-        public TestModelManager(SqlTestRepository testRepository) : base(testRepository)
+        public TestModelManager(ElasticSearchTestRepository esTestRepository) : base(esTestRepository)
         {
-            _testRepository = testRepository;
+            _esTestRepository = esTestRepository;
         }
 
-        public TestModel GetDataProcessedAndVerified()
+        public async Task<IEnumerable<TestModel>> GetMyData(List<int> myInts)
         {
-            return _testRepository.Read(0);
+            var testModels = await _esTestRepository.GetTestModelsByMyInts(myInts);
+            return testModels;
+        }
+
+        public bool MapType()
+        {
+            return _esTestRepository.MapType();
         }
     }
 }
