@@ -21,7 +21,7 @@ namespace Enact.Api.Config
             services.AddDependencyScanning().ScanAllAssemblies();
 
             //manual DI configuration goes here
-
+            services.AddSingleton(_ => config);
             services.AddSingleton(_ => new ElasticSearchTestRepository(new RepositoryClient(config["Es:Uri"], config["Es:Indices:Test"])));
             //services.AddSingleton<SqlCrudRepository<TestModel>, SqlTestRepository>(_ => new SqlTestRepository(new object()));
             

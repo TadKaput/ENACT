@@ -14,8 +14,8 @@
     "Microsoft.Extensions.Logging": "1.0.0",
     "Microsoft.Extensions.Logging.Console": "1.0.0",
     "Microsoft.Extensions.Logging.Debug": "1.0.0",
-    "Swashbuckle.SwaggerGen": "6.0.0-beta901",
-    "Swashbuckle.SwaggerUi": "6.0.0-beta901",
+    "Swashbuckle.SwaggerGen": "6.0.0-beta902",
+    "Swashbuckle.SwaggerUi": "6.0.0-beta902",
     "Microsoft.Extensions.PlatformAbstractions": "1.0.0",
     "Microsoft.Extensions.DependencyInjection": "1.0.0",
     "Enact.Models": "1.0.0-*",
@@ -24,17 +24,13 @@
   },
 
   "tools": {
-    "Microsoft.AspNetCore.Server.IISIntegration.Tools": {
-      "version": "1.0.0-preview1-final",
-      "imports": "portable-net45+win8+dnxcore50"
-    }
+    "Microsoft.AspNetCore.Server.IISIntegration.Tools": "1.0.0-preview2-final"
   },
 
   "frameworks": {
     "netcoreapp1.0": {
       "imports": [
         "dotnet5.6",
-        "dnxcore50",
         "portable-net45+win8"
       ]
     }
@@ -47,7 +43,7 @@
   },
 
   "runtimeOptions": {
-    "gcServer": true
+    "System.GC.Server": true
   },
 
   "publishOptions": {
